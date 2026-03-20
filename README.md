@@ -1,20 +1,27 @@
-# Rob Pike's 5 Rules of Programming
+# Agent Skills
 
-An agent skill that prevents premature optimization by enforcing measurement-driven development.
+Thinking disciplines for AI coding agents. Skills that enforce good engineering habits — not tooling workflows, but decision frameworks.
 
 ## Install
 
 ```bash
+# Install all skills
 npx skills add tmdgusya/robpike
+
+# Install a specific skill
+npx skills add tmdgusya/robpike --skill rob-pike
+npx skills add tmdgusya/robpike --skill systematic-debugging
 ```
 
-## What This Does
+## Skills
 
-This skill acts as a **circuit breaker** for AI coding agents. When the agent is about to optimize code without measurement data, the skill intercepts and redirects to Pike's discipline: measure first, then decide.
+### rob-pike
 
-It is a thinking discipline, not a tooling workflow. No specific profiler or benchmark tool is prescribed — only the questions you must answer before changing code for performance.
+Rob Pike's 5 Rules of Programming — prevents premature optimization by enforcing measurement-driven development.
 
-## The 5 Rules
+**Triggers on:** "optimize", "slow", "performance", "bottleneck", "speed up", "make faster", "too slow"
+
+The 5 Rules:
 
 1. **You can't tell where a program is going to spend its time.** Bottlenecks occur in surprising places. Don't guess — prove it.
 2. **Measure.** Don't tune for speed until you've measured. Even then, don't unless one part of the code overwhelms the rest.
@@ -22,25 +29,24 @@ It is a thinking discipline, not a tooling workflow. No specific profiler or ben
 4. **Fancy algorithms are buggier than simple ones.** Use simple algorithms and simple data structures.
 5. **Data dominates.** Choose the right data structures and the algorithms become self-evident. "Write stupid code that uses smart objects."
 
-> Pike's rules 1 and 2 restate Tony Hoare's famous maxim "Premature optimization is the root of all evil."
->
-> Ken Thompson rephrased Pike's rules 3 and 4 as "When in doubt, use brute force."
->
-> Rule 5 was previously stated by Fred Brooks in *The Mythical Man-Month*, often shortened to "write stupid code that uses smart objects."
+> Pike's rules 1 and 2 restate Tony Hoare's famous maxim "Premature optimization is the root of all evil." Ken Thompson rephrased rules 3 and 4 as "When in doubt, use brute force." Rule 5 was previously stated by Fred Brooks in *The Mythical Man-Month*.
 
-## When It Triggers
+### systematic-debugging
 
-The skill activates when the agent encounters words like "optimize", "slow", "bottleneck", "speed up", "make faster", "too slow", or "performance" — or when the agent is about to suggest a performance optimization without evidence.
+Enforces a strict reproduce-first, root-cause-first, failing-test-first debugging workflow. No guessing, no shotgun fixes.
 
-### Example Situations
+**Triggers on:** any bug, test failure, or unexpected behavior
 
-**"This API is slow, fix it"** → The agent asks: which endpoint? what's the latency? is it the handler, the DB query, or the network?
+Hard gates — no exceptions:
 
-**Agent spots an O(n²) loop** → Instead of rewriting with a hash map: what's n? If it's 20 items, the simple version is clearer and likely faster.
+1. Reproduce or make observable before fixing
+2. State a root-cause hypothesis before fixing
+3. Create a failing test before fixing
+4. Verify one hypothesis at a time
+5. No "while I'm here" refactoring during fixes
+6. Three failed fix attempts → suspect structural issues
 
-**"Should I add Redis for caching?"** → Does this path actually dominate runtime? Measure without the cache first.
-
-**Agent is about to suggest a trie / skip list / bloom filter** → Is a simple array enough? What's n?
+Includes reference guides for root-cause tracing, defense-in-depth validation, condition-based waiting (flaky test elimination), and a test polluter bisection script.
 
 ## License
 
